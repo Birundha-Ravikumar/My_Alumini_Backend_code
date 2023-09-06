@@ -30,7 +30,7 @@ const studentManyPostPayload = {
       degree: Joi.string().required(),
       department: Joi.string().required(),
       password: Joi.string().required(),
-    })
+    }),
   ),
 };
 

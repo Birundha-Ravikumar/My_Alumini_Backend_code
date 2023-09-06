@@ -1,20 +1,22 @@
-import {MongoService} from "../mongo/index";
+import { MongoService } from "../mongo/index";
 import dbConfig from "../config/mongo";
 import pkg from "jsonwebtoken";
-const {sign,verify} = pkg;
+const { sign, verify } = pkg;
 
 import btoa from "btoa";
 
-
 class LoginService {
-
-
-  static async getLoginDetails(userName:any, password:string) {
-    let flag= true;
+  static async getLoginDetails(userName: any, password: string) {
+    let flag = true;
     return await MongoService.collectionDetails("user").then((obj) => {
       return obj?.connection
         .findOne({
-          $or: [{ rollNumber: userName }, { email: userName },{mobileNumber:parseInt(userName)},{registerNumber:parseInt(userName)}]
+          $or: [
+            { rollNumber: userName },
+            { email: userName },
+            { mobileNumber: parseInt(userName) },
+            { registerNumber: parseInt(userName) },
+          ],
         })
         .then((data) => {
           if (!data) {
@@ -23,21 +25,23 @@ class LoginService {
           if (data?.password) {
             if (data.password != password) {
               return Promise.reject({
-                  auth: false,
-                  message: "Password not correct",
-                  data: {
-                    token: ""
-                  },
-                });
+                auth: false,
+                message: "Password not correct",
+                data: {
+                  token: "",
+                },
+              });
             }
           }
           let token = "";
           if (flag) {
-            token = sign({ id: data?._id }, dbConfig.key,
-                {
-                  expiresIn: dbConfig.expire, // expires in 24 hours
-                }
-                );
+            token = sign(
+              { id: data?._id },
+              dbConfig.key,
+              //   {
+              //   expiresIn: dbConfig.expire, // expires in 24 hours
+              // }
+            );
           } else {
             flag = false;
           }
@@ -52,9 +56,9 @@ class LoginService {
                   _id: data?._id,
                   email: data?.email,
                   mobileNumber: data?.mobileNumber,
-                  rollNumber:data?.rollNumber,
-                  registerNumber:data?.registerNumber,
-                  userGroup: btoa(JSON.stringify({ group: data?.userGroup }))
+                  rollNumber: data?.rollNumber,
+                  registerNumber: data?.registerNumber,
+                  userGroup: btoa(JSON.stringify({ group: data?.userGroup })),
                 },
               });
             } else {
@@ -77,11 +81,7 @@ class LoginService {
     });
   }
 
-  static verifyToken(
-    token: string,
-    successCallback: Function,
-    failiureCallback: Function
-  ) {
+  static verifyToken(token: string, successCallback: Function, failiureCallback: Function) {
     try {
       verify(token, dbConfig.key, function (err) {
         if (err) {
@@ -94,6 +94,5 @@ class LoginService {
       failiureCallback();
     }
   }
- 
 }
 export default LoginService;

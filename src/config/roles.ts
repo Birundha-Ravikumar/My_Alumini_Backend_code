@@ -1,8 +1,6 @@
-
-
-const userGroup= {
-    admin: "admin",
-    student: "student",
-  }
+const userGroup = {
+  admin: "admin",
+  student: "student",
+};
 
 export default userGroup;

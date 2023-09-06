@@ -1,10 +1,10 @@
-const pick = (object:any, keys:any) => {
-    return keys.reduce((obj:any, key:any) => {
-        if (object && object.hasOwnProperty(key)) {
-            obj[key] = object[key];
-        }
-        return obj;
-    }, {});
+const pick = (object: any, keys: any) => {
+  return keys.reduce((obj: any, key: any) => {
+    if (object && object.hasOwnProperty(key)) {
+      obj[key] = object[key];
+    }
+    return obj;
+  }, {});
 };
 
 export default pick;
