@@ -2,7 +2,7 @@ import express from "express";
 
 import loginRoute from "./login.route";
 import studentRoute from "./student.route";
-import jobRoute from "./jobs.routes";
+import dynamicRoute from "./dynamic.routes";
 
 const router = express.Router();
 
@@ -16,8 +16,16 @@ const defaultRoutes = [
     route: studentRoute,
   },
   {
-    path: "/jobs",
-    route: jobRoute,
+    path: "/job",
+    route: dynamicRoute("job"),
+  },
+  {
+    path: "/event",
+    route: dynamicRoute("event"),
+  },
+  {
+    path: "/gallery",
+    route: dynamicRoute("gallery"),
   },
 ];
 

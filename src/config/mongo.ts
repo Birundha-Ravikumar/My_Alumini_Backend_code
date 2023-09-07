@@ -9,6 +9,8 @@ const dbConfig = {
   collection: {
     user: "user_details",
     job: "job_details",
+    event: "event_details",
+    gallery: "gallery_details",
   },
 };
 
