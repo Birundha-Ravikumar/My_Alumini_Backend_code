@@ -1,5 +1,5 @@
-const env :any= {
-    NODE_ENV: "development"
-}
+const env: any = {
+  NODE_ENV: "development",
+};
 
 export default env;

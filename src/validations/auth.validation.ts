@@ -1,14 +1,14 @@
-import Joi from 'joi';
+import Joi from "joi";
 
 const loginPayload = {
-    body: Joi.object().keys({
-        userName: Joi.string().required(),
-        password: Joi.string().required(),
-    }),
+  body: Joi.object().keys({
+    userName: Joi.string().required(),
+    password: Joi.string().required(),
+  }),
 };
 
 const authValidation = {
-    loginPayload
-}
+  loginPayload,
+};
 
 export default authValidation;
