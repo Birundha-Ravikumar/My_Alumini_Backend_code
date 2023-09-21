@@ -3,9 +3,9 @@ import dbConfig from "../config/mongo";
 import env from "../config/environment";
 import dotenv from "dotenv";
 dotenv.config({ path: `.env.${env.NODE_ENV}` });
-const Cryptr = require("cryptr");
-const cryptr = new Cryptr("myTotallySecretKey", { encoding: "base64", pbkdf2Iterations: 10000, saltLength: 10 });
-const decryptedString = cryptr.decrypt(process.env.MONGO_URI);
+import Cryptr from "cryptr";
+const cryptr = new Cryptr("mySecretKey", { encoding: "base64", pbkdf2Iterations: 10000, saltLength: 10 });
+const decryptedString = process.env.MONGO_URI && cryptr.decrypt(process.env.MONGO_URI);
 
 let dbcon_url: string | undefined = decryptedString;
 
