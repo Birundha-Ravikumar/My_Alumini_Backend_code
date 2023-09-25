@@ -42,7 +42,7 @@ export class StudentController {
     try {
       const jwtPayload = decodeJwt(request);
       const queryData = request.query;
-      if (jwtPayload && jwtPayload.id) {
+      if (jwtPayload?.id) {
         StudentService.getStudentlist(jwtPayload.id, queryData)
           .then((data: any) => {
             response.status(200).json(data);
@@ -63,7 +63,7 @@ export class StudentController {
   static getSpecificUser(request: Request, response: Response) {
     try {
       const jwtPayload = decodeJwt(request);
-      if (jwtPayload && jwtPayload.id) {
+      if (jwtPayload?.id) {
         StudentService.getSpecificUser(jwtPayload.id)
           .then((data: any) => {
             response.status(200).json(data);
